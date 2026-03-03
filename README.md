@@ -22,3 +22,7 @@ Part of Decision Logic Lab: https://github.com/system-logic/decision-logic-lab
 Responsibility:  
 Understanding structure ≠ permission to apply.  
 Any use in live trading = full personal risk.
+
+## Episodes
+- [Video 1 — Environment Mapping & Core Questions](./video_1/)
+- [Video 2 — ...]
