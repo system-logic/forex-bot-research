@@ -1,106 +1,74 @@
-# VIDEO 1 — PROJECT STATE
+# Video 1 — Environment Analysis and Edge Hypotheses
 
-## 1. Market Selection
+**Part of:** Forex Bot Research  
+**Focus:** Understanding the trading environment before writing any code
 
-Chosen market: Forex
+## Goal of the Video
+To thoroughly analyze the Forex market as a non-stationary environment and lay the foundation for building an adaptive mid-term trading bot.  
+No code or specific strategy in this episode — only deep environment mapping and architectural decisions.
 
-Reasoning:
-- Relative pricing between economies
-- Cyclical and regime-based structure
-- Moderate volatility
-- Leverage availability
-- High liquidity on major pairs
-- Lower transaction costs compared to many markets
+## Key Decisions Made
 
+### 1. Market Choice
+- **Selected:** Forex (currency pairs)
+- **Rejected:** Stocks (too low volatility for short-term speculation) and Crypto (excessively news-driven and chaotic)
 
-## 2. Structural Characteristics (Constant)
+**Reason:** Forex is a market of relative values with structural cyclicality, macroeconomic drivers, bounded volatility, and available leverage.
 
-- 24/5 trading cycle
-- Session-based activity differences (Asia / London / New York)
-- Decentralized market (broker-dependent execution)
-- High liquidity on major pairs
-- Leverage impact
-- Low transaction costs (spread + swap)
-- Sensitivity to macroeconomic news
+### 2. Structural (Constant) Market Characteristics
+These define the foundation the bot must respect:
 
+1. 24/5 market with no fixed open/close — requires session filtering
+2. Extremely high liquidity on major pairs — tight spreads, minimal slippage
+3. Decentralized market — quotes and execution depend on the broker
+4. High leverage (1:30 to 1:500) — demands strict risk management (0.5–2% per trade)
+5. Very low transaction costs — enables higher trade frequency
+6. Strong sensitivity to macroeconomic news — requires built-in news filter
 
-## 3. Dynamic Characteristics (Real-Time Context)
+### 3. Dynamic Characteristics (Monitored in Real Time)
+The bot must continuously track these to understand current market context:
 
-- Market regime (trend / range / chop)
-- Current volatility
-- Session activity intensity
-- Strength of price movement (momentum)
-- Inter-pair correlation
-- Proximity of high-impact news
-- Carry / swap impact for multi-day holding
+1. Current market regime (trend / range / chop)
+2. Volatility level
+3. Session activity and intraday cyclicality
+4. Momentum strength and sustainability
+5. Correlations between currency pairs
+6. Proximity of news/events
+7. Carry trade dynamics (swaps)
 
+### 4. System Architecture Choice
+- **Chosen:** Adaptive (regime-aware + context-aware)
+- Goal: Not just to make money, but to know **when the model stops working**
+- First, a simple reference bot will be built to observe its degradation in real conditions
 
-## 4. Trading Scope
+### 5. Trading System Parameters (Mid-term)
+- **Style:** Medium-term (positions held from several hours to several days)
+- **Pairs:** Only major pairs — EUR/USD, GBP/USD, USD/JPY, AUD/USD, USD/CAD
+- **Sessions:** London + New York (especially overlap). Asian session — only for managing open positions
+- **News:** Hard filter (high-impact events + 15–30 min blocking window)
+- **Regime Detection:** Mandatory real-time detection
+- **Volatility:** Adaptive stop-loss, take-profit, and position sizing
+- **Abnormal Conditions:** Block trading or reduce risk when market structure breaks
+- **Minimum Context for Trade:** All key conditions must align (session + regime + volatility + no news + sufficient liquidity)
 
-Type: Medium-term trading  
-Holding period: Several hours to several days  
+### 6. Three Directions for Future Edge Hypotheses
+These will be explored and tested in later videos:
 
-Pairs:
-- EUR/USD
-- GBP/USD
-- USD/JPY
-- AUD/USD
-- USD/CAD
+1. **Session Momentum Continuation**  
+   Strong directional impulse at the start of an active session tends to continue.
 
-Sessions:
-- London
-- New York
-- Overlap preferred
-- Asian session excluded (initial stage)
+2. **Mean Reversion from Extremes**  
+   When price deviates significantly from its recent balance (given current volatility), probability of return increases.
 
+3. **Liquidity Levels & Structural Breaks**  
+   Price behavior around key highs/lows: true breakout vs false breakout (liquidity grab).
 
-## 5. Core Filters (Minimum Context for Trade)
-
-A trade is allowed only if:
-
-1. Active session
-2. Regime matches strategy type
-3. Volatility within acceptable range
-4. No high-impact news nearby
-5. No abnormal market state
-6. Acceptable spread / liquidity
-7. Risk per trade within 0.5–2%
-
-
-## 6. Architectural Direction
-
-Two possible architectures:
-
-1. Static profit-seeking system
-2. Adaptive regime-aware system
-
-Chosen direction: Adaptive architecture
-
-Structure:
-- Strategy layer
-- Meta-layer (regime detection, activation control, parameter adjustment)
-
-Critical node:
-Market regime detection
-
-
-## 7. Edge Hypothesis Directions (Draft)
-
-Hypothesis 1:
-Session-based impulse continuation.
-
-Hypothesis 2:
-Mean deviation reversion under volatility-adjusted extremes.
-
-Hypothesis 3:
-Liquidity capture behavior near structural highs/lows.
-
+## What's Next (Video 2)
+Analysis of an **unstructured bot** — a simple strategy without regime detection or environmental filters — to clearly see its weaknesses and degradation in a non-stationary market.
 
 ---
 
-Status after Video 1:
-Environment defined.
-Constraints defined.
-Architectural direction chosen.
-Edge hypotheses outlined.
-Implementation not started.
+**Important Disclaimer**  
+This is a research project for educational purposes only.  
+No trading strategy or profitable bot is provided.  
+Any use of this material in live trading is at your own risk.
