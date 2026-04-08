@@ -30,5 +30,5 @@ Any use in live trading = full personal risk.
 
 ## Episodes
 
-- Video 1 — Environment Mapping & Core Questions  
+- Video 1 — Environment Analysis and Edge Hypotheses 
 - Video 2 — Analysis of an unstructured bot (planned)
